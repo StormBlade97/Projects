@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> Handling events in IE8 and earlier </title>
+    <style>
+        span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <span id="clickme">Click me!</span>
+    <div id="div">
+        <p>
+            This is a div
+        </p>
+    </div>
+    <div id="listGoesHere">
+      <!-- list will be inserted here -->
+    </div>
+    <script>
+    window.onload = function() {
+      var div = document.getElementById("clickme");
+      if (div.addEventListener) {
+        div.addEventListener("click", handleClick, false);
+      } else if (div.attachEvent) {
+        div.attachEvent("click", handleClick);
+      }
+      document.getElementById('div').addEventListener("mouseover", handleMouseOver, false);
+    };
+
+    function handleClick(e) {
+      var evt = e || window.event;
+      var target;
+      if (evt.target) {
+        target = evt.target;
+      } else {
+        target = evt.srcElement;
+      }
+      alert("You clicked on " + target.id);
+    }
+    //this is the callback
+    function handleMouseOver(e) {
+      alert("You are hovering over " + e.target.id);
+    }
+
+    function insert() {
+      var ul = document.createElement("ul");
+      document.getElementById('listGoesHere').appendChild(ul);
+      for (var i = 0; i < 10; i++) {
+        var li = document.createElement("li");
+        li.innerHTML = 'This is list #' + i;
+        ul.appendChild(li);
+      }
+    }
+    insert();
+    </script>
+</body>
+
+</html>

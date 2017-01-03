@@ -1,0 +1,26 @@
+﻿  Source.cpp
+d:\study\project\c++\dictionary\dictionary\source.cpp(54): error C2661: 'std::vector<std::string,std::allocator<_Ty>>::insert': no overloaded function takes 1 arguments
+          with
+          [
+              _Ty=std::string
+          ]
+d:\study\project\c++\dictionary\dictionary\source.cpp(89): error C2039: 'find': is not a member of 'std::vector<std::string,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=std::string
+          ]
+  d:\study\project\c++\dictionary\dictionary\source.cpp(52): note: see declaration of 'std::vector<std::string,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=std::string
+          ]
+d:\study\project\c++\dictionary\dictionary\source.cpp(89): error C2039: '__this': is not a member of 'std::vector<std::string,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=std::string
+          ]
+  d:\study\project\c++\dictionary\dictionary\source.cpp(52): note: see declaration of 'std::vector<std::string,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=std::string
+          ]

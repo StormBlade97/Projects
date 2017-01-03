@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Practise AJAX</title>
+</head>
+<body>
+  <script type="text/javascript">
+  
+  function load()
+  {
+    var url = document.querySelector('#urlfield').value;
+    if(window.XMLHttpRequest) //if not IE
+    {
+      httpRequest = new XMLHttpRequest();
+    }
+    else if(window.ActiveXObject) //ie
+    {
+      try
+      {
+        httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+      }
+      catch(e)
+      {
+        try {
+          httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        catch(e)
+        {
+          alert('Cannot create HTTPREQUEST object. Aborting....')
+        }
+      }
+    }
+    if(!httpRequest){ alert('Aborting!...'); return;}
+    //make callback
+    httpRequest.onreadystatechange = displacesite;
+    httpRequest.open('GET',url);
+    httpRequest.send();
+  }
+  function displacesite()
+  {
+    if(httpRequest.readyState === 4)
+    {
+      if(httpRequest.status === 200)
+      alert('site is good');
+      if(httpRequest.status === 404)
+      alert('site is down');
+    }
+  }
+
+  </script>
+  <div class="null">
+    <label for="urlfield"></label><input type="text" id='urlfield' name="name" value="" placeholder='Type a url to get the webpage'>
+    <button type="button" onclick='load()' name="button">Load the webpage</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AJAX test</title>
+</head>
+<body>
+  <div class="network-fake">
+    <label><input type="checkbox" checked="false"> Fake network delay</label>
+  </div>
+  <div class="story"></div>
+  <svg class="spinner" viewBox="0 0 100 100" width="20" height="20">
+    <circle cx="50" cy="50" r="42" transform="rotate(-90,50,50)" />
+  </svg>
+  <div class="dictionary">
+    <ul>
+
+    </ul>
+  </div>
+  <script src="js/ajax_utils.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+  <script>
+  try {
+    // Use Github Gist when no web server is available
+    // var story = getJsonSync('https://gist.githubusercontent.com/c0lin/571d38b984d41b44aacf/raw/story.json');
+    var story = getJsonSync('data/story.json');
+    addHtmlToPage(story.heading);
+
+    story.chapterUrls.forEach(function(chapterUrl) {
+      var chapter = getJsonSync('data/'+chapterUrl); // remove the 'data/' part if using gist
+      addHtmlToPage(chapter.html);
+    });
+
+    addTextToPage("All done");
+  }
+  catch (err) {
+    addTextToPage("Argh, broken: " + err.message);
+  }
+
+  document.querySelector('.spinner').style.display = 'none';
+  //helper function for selection on double click -------------------------------------------------------------------------------------------------
+  function get_selection() {
+    var txt = '';
+    if (window.getSelection) {
+      txt = window.getSelection();
+    } else if (document.getSelection) {
+      txt = document.getSelection();
+    } else if (document.selection) {
+      txt = document.selection.createRange().text;
+    }
+    return txt.toString();
+  }
+  function getMeaning(word)
+  {
+    var url = 'http://api.wordnik.com:80/v4/word.json/'+ word + '/definitions?limit=200&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
+    var obj =  getJsonSync(url);
+    console.log(obj);
+    return obj[0].text;
+  }
+  function insertIntoList(word)
+  {
+  var div = document.querySelector('.dictionary > ul');
+  var li = document.createElement('li');
+  li.innerHTML = word + ' : ' + getMeaning(word);
+  div.appendChild(li);
+  }
+
+  $(document).dblclick(function(e) {
+    var t = get_selection();
+    t = t.trim();
+    console.log(t);
+    insertIntoList(t);
+  });
+  //end of selection  ----------------------------------------------------------------------------------------------------------------------------
+  </script>
+</body>
+</html>
