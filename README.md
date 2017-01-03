@@ -19,6 +19,7 @@ In this project folder you will see these notable projects highlighting my skill
        Game is made in December, 2015
        More details about the game (how to play, etc.) can be found in the readme in the folder
        Link to the living page: http://www.cc.puv.fi/~e1500970/Ball_game.html
+       
    2.3 ReactJS form
        I am still working on this new front end technology.
        This small application is to help me understand how the technology works.
